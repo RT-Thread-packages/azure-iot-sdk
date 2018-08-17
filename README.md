@@ -46,7 +46,23 @@ azure
 
 Azure 软件包遵循 GNU GENERAL PUBLIC LICENSE 许可，详见 `LICENSE` 文件。
 
-### 1.3 依赖
+### 1.3 资源占用
+
+当统计 Azure IoT SDK 软件包资源占用时，仅统计软件包本身占用的 RAM 和 ROM 大小，未统计 LibC 及外部依赖的软件包所占用的资源大小（如 TLS）。当统计例程运行时资源占用时，统计全部的动态内存占用情况。
+
+- 测试平台： i.mxrt1052
+- 测试 IDE： MDK5
+- 优化级别：O2
+- 软件包资源占用如下所示：
+```
+    RW(RW + ZI)             :  988   bytes（0.98K）
+    RO(CODE + RO)           :  72888 bytes（72.88K）
+    ROM(CODE + RO + RW)     :  73876 bytes（73.88K）
+    sample Dynamic memory（heap)    ： 68248 bytes（68.24K）
+```
+
+
+### 1.4 依赖
 
 - [RT_Thread 3.0+](https://github.com/RT-Thread/rt-thread/releases/tag/v3.0.4)
 - [MbedTLS 软件包](https://github.com/RT-Thread-packages/mbedtls)
