@@ -54,28 +54,32 @@ RT-Thread online packages  --->
 
 3、在 “IoT 中心” 窗格中，输入 IoT 中心的以下信息：
 
-   - **订阅**：选择需要将其用于创建此 IoT 中心的订阅。
-   - **资源组**：创建用于托管 IoT 中心的资源组，或使用现有的资源组，在这个栏目中填入一个合适的名字就可以了。 有关详细信息，请参阅[使用资源组管理 Azure 资源](https://docs.azure.cn/zh-cn/azure-resource-manager/resource-group-portal)。
-   - **区域**：选择最近的位置。
-   - **名称**：创建 IoT 中心的名称，这个名称需要是唯一的。 如果输入的名称可用，会显示一个绿色复选标记。
+   - **Subscription（订阅）**：选择需要将其用于创建此 IoT 中心的订阅。
+   - **Resource Group（资源组）**：创建用于托管 IoT 中心的资源组，或使用现有的资源组，在这个栏目中填入一个合适的名字就可以了。 有关详细信息，请参阅[使用资源组管理 Azure 资源](https://docs.azure.cn/zh-cn/azure-resource-manager/resource-group-portal)。
+   - **Region（区域）**：选择最近的位置。
+   - **IoT Hub Name（物联网中心名称）**：创建 IoT 中心的名称，这个名称需要是唯一的。 如果输入的名称可用，会显示一个绿色复选标记。
 
      ![1533003200926](figures/create_iot_hub_name.png)
 
-4、选择“下一步: 大小和规模”，以便继续创建 IoT 中心。
+4、选择“下一步: **Size and scale（大小和规模）**”，以便继续创建 IoT 中心。
 
-5、选择“定价和缩放层”。 就测试用途来说，请选择“F1 - 免费”层（前提是此层在订阅上仍然可用）。 有关详细信息，请参阅[定价和缩放层](https://www.azure.cn/pricing/details/iot-hub/)。
+5、选择“**Pricing and scale tier（定价和缩放层）**”。 就测试用途来说，请选择“**F1:Free tier（F1 - 免费）**”层（前提是此层在订阅上仍然可用）。 有关详细信息，请参阅[定价和缩放层](https://www.azure.cn/pricing/details/iot-hub/)。
 
    ![1533003301834](figures/select_f1_layer.png)
 
-6、选择“查看 + 创建”。
+6、选择“**Review + create（查看 + 创建）**”。
 
-7、查看 IoT 中心信息，然后单击“创建”即可。 创建 IoT 中心可能需要数分钟的时间。 可在“通知”窗格中监视进度，创建成功后就可以进行下一步注册设备的操作了。
+7、查看 IoT 中心信息，然后单击“创建”即可。 创建 IoT 中心可能需要数分钟的时间。 可在“**通知**”窗格中监视进度，创建成功后就可以进行下一步注册设备的操作了。
+
+8、为了后续方便查找，可以手动将创建成功后的资源添加到**仪表盘**。
 
 ## 注册设备
 
 要想运行设备端相关的示例，需要先将设备信息注册到 IoT 中心里，然后该设备才能连接到 IoT 中心。 在本次示例中，可以使用 DeviceExplorer 工具来注册设备。
 
-1、IoT 中心创建完毕后，在设置栏目中，点击共享访问策略选项，可以打开 IoT 中心的访问权限设置。打开 iothubowner，在右侧弹出的属性框中获得 IoT 中心的共享访问密钥。
+- 获得 IoT 中心的**共享访问密钥**（即IoT 中心连接字符串）
+
+1、IoT 中心创建完毕后，在设置栏目中，点击**共享访问策略**选项，可以打开 IoT 中心的访问权限设置。打开 iothubowner，在右侧弹出的属性框中获得 IoT 中心的**共享访问密钥**。
 
    ![1533005033580](figures/share_access.png)
 
@@ -83,11 +87,13 @@ RT-Thread online packages  --->
 
    ![1533005197508](figures/get_connect_string.png)
 
-3、有了连接字符串后，我们便可以使用 DeviceExplorer 工具来创建设备，并测试 IoT 中心的功能了。打开测试工具，在配置选项中填入的连接字符串。点击 `update` 按钮更新本地连接  IoT 中心的配置，为下一步创建测试设备做准备。
+- 创建设备
+
+1、有了连接字符串后，我们便可以使用 DeviceExplorer 工具来创建设备，并测试 IoT 中心的功能了。打开测试工具，在配置选项中填入的连接字符串。点击 `update` 按钮更新本地连接  IoT 中心的配置，为下一步创建测试设备做准备。
 
    ![1533006055390](figures/update_device_explorer.png)
 
-4、打开 Management 选项栏，按照下图所示的步骤来创建测试设备。设备创建成功后，就可以运行设备的功能示例了。
+2、打开 Management 选项栏，按照下图所示的步骤来创建测试设备。设备创建成功后，就可以运行设备的功能示例了。
 
    ![1533006787751](figures/management_device.png)
 
