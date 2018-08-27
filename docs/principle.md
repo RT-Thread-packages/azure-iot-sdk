@@ -8,9 +8,9 @@ IoT 中心客户端会向下调用 LL 层来完成工作，LL 层向下对接不
 
 - IoT 客户端框架 HTTP/MQTT 功能调用关系图：
 
-![1533197763626](figures/iot_client.png)
+![HTTP/MQTT 功能调用关系图](figures/iot_client.png)
 
-- 下图以 http 协议为例展示 API 调用情况：
+- 下图以 HTTP 协议为例展示 API 调用情况：
 
-![1533261258965](figures/http_api_invoke.png)
+![HTTP 协议 API 调用](figures/http_api_invoke.png)
 
