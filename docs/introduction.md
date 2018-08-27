@@ -20,25 +20,25 @@ Azure IoT 中心的服务托管在云中运行，充当中央消息中心，用�
 
 ## 软件包目录结构
 
-``` 
+``` c
 azure
-├───azure                             // Azure 云平台 SDK
-├───azure-port                        // 移植文件
-├───docs 
-│     └───figures                     // 文档使用图片
-│     │   api.md                      // API 使用说明
-│     │   introduction.md             // 介绍文档
-│     │   principle.md                // 实现原理
-│     │   README.md                   // 文档结构说明  
-│     │   samples.md                  // 软件包示例
-│     │   user-guide.md               // 使用说明
-│     └───version.md                  // 版本
-├───samples                           // 示例代码
-│     │   iothub_ll_telemetry_sample  // 设备上传遥测数据示例
-│     └───iothub_ll_c2d_sample        // 设备接收云端数据示例
-│   LICENSE                           // 软件包许可证
-│   README.md                         // 软件包使用说明
-└───SConscript                        // RT-Thread 默认的构建脚本
++---azure                             // Azure 云平台 SDK
++---azure-port                        // 移植文件
++---docs
+|     +---figures                     // 文档使用图片
+|     |   api.md                      // API 使用说明
+|     |   introduction.md             // 介绍文档
+|     |   principle.md                // 实现原理
+|     |   README.md                   // 文档结构说明  
+|     |   samples.md                  // 软件包示例
+|     |   user-guide.md               // 使用说明
+|     +---version.md                  // 版本
++---samples                           // 示例代码
+|     |   iothub_ll_telemetry_sample  // 设备上传遥测数据示例
+|     +---iothub_ll_c2d_sample        // 设备接收云端数据示例
+|   LICENSE                           // 软件包许可证
+|   README.md                         // 软件包使用说明
++---SConscript                        // RT-Thread 默认的构建脚本
 ```
 
 ## Azure 简述
@@ -53,7 +53,7 @@ azure
 
 Azure IoT 中心的架构图如下所示：
 
-![img](figures/hubarchitecture.png) 
+![Azure IoT 中心的架构图](figures/hubarchitecture.png) 
 
 Azure IoT 中心提供如下功能：
 

@@ -23,7 +23,15 @@ IoTHubClient 库提供两套简单易用的 API，一套 API 的名称中包含 
 
 ### 物联网中心客户端初始化
 
-> `IOTHUB_CLIENT_LL_HANDLE  IoTHubClient_LL_CreateFromConnectionString(const char* connectionString, IOTHUB_CLIENT_TRANSPORT_PROVIDER protocol)`
+IOTHUB_CLIENT_LL_HANDLE  
+
+IoTHubClient_LL_CreateFromConnectionString(
+
+const char* connectionString, 
+
+IOTHUB_CLIENT_TRANSPORT_PROVIDER protocol)
+
+
 
 使用指定的连接字符串参数创建一个物联网中心客户端来与现有的物联网中心通信。
 
@@ -36,8 +44,11 @@ IoTHubClient 库提供两套简单易用的 API，一套 API 的名称中包含 
 |NULL                 | 失败                                |
 
 ### 物联网中心客户端资源释放
+void 
 
-> `void IoTHubDeviceClient_LL_Destroy(IOTHUB_DEVICE_CLIENT_LL_HANDLE iotHubClientHandle)`
+IoTHubDeviceClient_LL_Destroy(
+
+IOTHUB_DEVICE_CLIENT_LL_HANDLE iotHubClientHandle)
 
 释放物联网中心客户端分配的资源。这是一个阻塞的调用。
 
@@ -48,8 +59,17 @@ IoTHubClient 库提供两套简单易用的 API，一套 API 的名称中包含 
 |无                  | 无             |
 
 ### 设置发送事件回调函数
+IOTHUB_CLIENT_RESULT 
 
-> `IOTHUB_CLIENT_RESULT IoTHubClient_LL_SendEventAsync(IOTHUB_CLIENT_LL_HANDLE iotHubClientHandle, IOTHUB_MESSAGE_HANDLE eventMessageHandle, IOTHUB_CLIENT_EVENT_CONFIRMATION_CALLBACK eventConfirmationCallback, void* userContextCallback)`
+IoTHubClient_LL_SendEventAsync(
+
+IOTHUB_CLIENT_LL_HANDLE iotHubClientHandle, 
+
+IOTHUB_MESSAGE_HANDLE eventMessageHandle, 
+
+IOTHUB_CLIENT_EVENT_CONFIRMATION_CALLBACK eventConfirmationCallback, 
+
+void* userContextCallback)
 
 异步调用发送由 eventMessageHandle 指定的消息。
 
@@ -57,7 +77,7 @@ IoTHubClient 库提供两套简单易用的 API，一套 API 的名称中包含 
 |:------------------|:------------------------------------|
 |iotHubClientHandle               | 已创建的物联网中心客户端句柄 |
 |eventMessageHandle | 物联网中心消息句柄 |
-|eventConfirmationCallback | 由设备指定的回调，用于接收物联网中心消息的交付确认。  这个回调可以被同一消息调用：当 iothubclientllsendeventasync 函数，试图重试发送一条失败的消息。用户可以在这里指定一个NULL值，以表明不需要回调 |
+|eventConfirmation  Callback | 由设备指定的回调，用于接收物联网中心消息的交付确认。  这个回调可以被同一消息调用：当 iothubclientllsendeventasync 函数，试图重试发送一条失败的消息。用户可以在这里指定一个NULL值，以表明不需要回调 |
 |userContextCallback | 用户指定的上下文将被提供给回调，可以为空 |
 | **返回**          | **描述**                                |
 |IOTHUB_CLIENT_OK                  | 设置成功 |
@@ -65,7 +85,16 @@ IoTHubClient 库提供两套简单易用的 API，一套 API 的名称中包含 
 
 ### 设置接收消息回调函数
 
-> `IOTHUB_CLIENT_RESULT IoTHubDeviceClient_LL_SetMessageCallback(IOTHUB_DEVICE_CLIENT_LL_HANDLE iotHubClientHandle, IOTHUB_CLIENT_MESSAGE_CALLBACK_ASYNC messageCallback, void* userContextCallback)`
+IOTHUB_CLIENT_RESULT 
+
+IoTHubDeviceClient_LL_SetMessageCallback(
+
+IOTHUB_DEVICE_CLIENT_LL_HANDLE iotHubClientHandle, 
+
+IOTHUB_CLIENT_MESSAGE_CALLBACK_ASYNC messageCallback,
+
+void* userContextCallback)
+
 
 当物联网中心向设备发送消息时，设置要调用的消息回调。这是一个阻塞的调用。
 
@@ -80,7 +109,14 @@ IoTHubClient 库提供两套简单易用的 API，一套 API 的名称中包含 
 
 ### 设置物理中心客户端
 
-> `IOTHUB_CLIENT_RESULT IoTHubDeviceClient_LL_SetOption(IOTHUB_DEVICE_CLIENT_LL_HANDLE iotHubClientHandle, const char* optionName, const void* value)`
+IOTHUB_CLIENT_RESULT 
+
+IoTHubDeviceClient_LL_SetOption
+
+IOTHUB_DEVICE_CLIENT_LL_HANDLE iotHubClientHandle, 
+
+const char* optionName, const void* value)
+
 
 这个API设置了一个由参数 `optionName` 标识的运行时选项，选项名和数据类型值指向每个选项都是特定的。
 
@@ -95,7 +131,17 @@ IoTHubClient 库提供两套简单易用的 API，一套 API 的名称中包含 
 
 ### 设置连接状态回调
 
-> `IOTHUB_CLIENT_RESULT IoTHubDeviceClient_LL_SetConnectionStatusCallback(IOTHUB_DEVICE_CLIENT_LL_HANDLE iotHubClientHandle, IOTHUB_CLIENT_CONNECTION_STATUS_CALLBACK connectionStatusCallback, void * userContextCallback)`
+IOTHUB_CLIENT_RESULT 
+
+IoTHubDeviceClient_LL_SetConnectionStatusCallback(
+
+IOTHUB_DEVICE_CLIENT_LL_HANDLE iotHubClientHandle, 
+
+IOTHUB_CLIENT_CONNECTION_STATUS_CALLBACK connectionStatusCallback, 
+
+void * userContextCallback)
+
+
 
 设置要调用的连接状态回调，表示连接到物联网中心的状态。这是一个阻塞的调用。
 
@@ -110,7 +156,12 @@ IoTHubClient 库提供两套简单易用的 API，一套 API 的名称中包含 
 
 ### 完成（发送/接收）工作
 
-> `void IoTHubDeviceClient_LL_DoWork(IOTHUB_DEVICE_CLIENT_LL_HANDLE iotHubClientHandle)`
+void
+
+IoTHubDeviceClient_LL_DoWork(
+
+IOTHUB_DEVICE_CLIENT_LL_HANDLE iotHubClientHandle)
+
 
 当工作（发送/接收）可以由 IoTHubClient 完成时，该函数将被用户调用。所有 IoTHubClient 交互（关于网络流量和/或用户级回调）都是调用这个函数的效果，它们在 DoWork 中同步进行。 
 
