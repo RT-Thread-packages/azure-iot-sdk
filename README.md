@@ -84,6 +84,8 @@ RT-Thread online packages  --->
 ```
 选择合适的配置项后，使用 `pkgs --update` 命令下载软件包并添加到工程中即可。
 
+**注意：本软件包移植过程中删除了多余的文件，如需要使用完整功能的SDK，可以下载[原始SDK](https://github.com/Azure/azure-iot-sdk-c/tree/5299d0010226fdf2dabb3ac3c1f38eabe4500986)进行对比添加。**
+
 ## 3、使用 Azure 软件包
 
 * 了解软件包提供的功能，请参考 [用户手册](docs/user-guide.md)。
