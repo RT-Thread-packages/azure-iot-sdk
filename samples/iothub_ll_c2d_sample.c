@@ -218,7 +218,7 @@ int azure_iothub_ll_c2d_sample(void)
 }
 
 #define THREAD_PRIORITY         10
-#define THREAD_STACK_SIZE       20000
+#define THREAD_STACK_SIZE       8192
 #define THREAD_TIMESLICE        5
 
 int azure_c2d_sample()
