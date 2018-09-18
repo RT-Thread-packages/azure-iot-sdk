@@ -118,7 +118,7 @@ static IOTHUBMESSAGE_DISPOSITION_RESULT receive_msg_callback(IOTHUB_MESSAGE_HAND
     return IOTHUBMESSAGE_ACCEPTED;
 }
 
-int azure_iothub_ll_c2d_sample(void)
+void azure_iothub_ll_c2d_sample(void *parameter)
 {
     IOTHUB_CLIENT_TRANSPORT_PROVIDER protocol;
     size_t messages_count = 0;
@@ -213,8 +213,6 @@ int azure_iothub_ll_c2d_sample(void)
 
     rt_kprintf("Azure Sample Exit");
     //getchar();
-
-    return 0;
 }
 
 #define THREAD_PRIORITY         10

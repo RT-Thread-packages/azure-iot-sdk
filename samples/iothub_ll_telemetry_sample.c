@@ -89,7 +89,7 @@ static void connection_status_callback(IOTHUB_CLIENT_CONNECTION_STATUS result, I
     }
 }
 
-int azure_iothub_ll_telemetry_sample(void)
+void azure_iothub_ll_telemetry_sample(void *parameter)
 {
     IOTHUB_CLIENT_TRANSPORT_PROVIDER protocol;
     IOTHUB_MESSAGE_HANDLE message_handle;
@@ -200,7 +200,6 @@ int azure_iothub_ll_telemetry_sample(void)
     rt_kprintf("Azure Sample Exit");
     //getchar();
 
-    return 0;
 }
 
 #define THREAD_PRIORITY         10
