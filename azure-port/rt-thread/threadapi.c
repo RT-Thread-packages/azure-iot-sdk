@@ -28,7 +28,7 @@ THREADAPI_RESULT ThreadAPI_Create(THREAD_HANDLE* threadHandle, THREAD_START_FUNC
     {
         thread_arg_tag_t *thread_arg = arg;
         *threadHandle = rt_thread_create(thread_arg->thread_name ,
-                                         func, (void*)1, 
+                                         (void (*)(void *))func, (void*)1, 
                                          thread_arg->stack_size, 
                                          thread_arg->thread_priority, 
                                          thread_arg->thread_time_tiumeslice);
