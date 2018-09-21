@@ -200,7 +200,7 @@ Azure Sample Exit
 
 ### 设备端运行示例程序
 
-- 在 msh 中运行 azure_telemetry_sample 示例程序 ，示例程序运行后设备将会等待并接收云端下发的数据：
+- 在 msh 中运行 azure_c2d_sample 示例程序 ，示例程序运行后设备将会等待并接收云端下发的数据：
 
 ```c
 msh />azure_c2d_sample
