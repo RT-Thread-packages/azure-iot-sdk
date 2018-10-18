@@ -191,7 +191,7 @@ Azure Sample Exit
 
 | 示例程序路径                   | 说明      |
 | ----                          | ---          |
-| samples/iothub_ll_c2d_sample.c | 在设备端监听 Azure IoT 中心下发的数据。 |
+| samples/iothub_ll_c2d_sample.c | 在设备端监听 Azure IoT 中心下发的数据 |
 
 ### 修改示例代码中的设备连接字符串
 - 与上面的示例相同，本示例程序也需要填写正确的设备连接字符串，修改完毕后重新编译程序，下载到开发板中即可。修改内容如下所示：
