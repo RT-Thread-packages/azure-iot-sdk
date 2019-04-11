@@ -16,16 +16,14 @@
 int platform_init(void)
 {
     time_t result = ntp_sync_to_rtc(NETUTILS_NTP_HOSTNAME);
-    
+
     if (result > 0)
     {
-        rt_kprintf("\nntp init\n");
+        rt_kprintf("ntp init successful.\n");
         return RT_EOK;
+    }
 
-    }else if( result == 0)
-    {
-        return RT_ERROR;
-    }   
+    return -RT_ERROR;
 }
 
 const IO_INTERFACE_DESCRIPTION* platform_get_default_tlsio(void)
