@@ -248,19 +248,12 @@ static int add_pending_io(SOCKET_IO_INSTANCE* socket_io_instance, const unsigned
     return result;
 }
 
-static STATIC_VAR_UNUSED void signal_callback(int signum)
-{
-    AZURE_UNREFERENCED_PARAMETER(signum);
-    LogError("Socket received signal %d.", signum);
-}
-
 static int lookup_address_and_initiate_socket_connection(SOCKET_IO_INSTANCE* socket_io_instance) 
 {
     int result;
     int err;
 
     struct addrinfo addrInfoHintIp;
-//    struct sockaddr_un addrInfoUn;
     struct sockaddr* connect_addr;
     socklen_t connect_addr_len;
     struct addrinfo* addrInfoIp = NULL;
@@ -287,36 +280,9 @@ static int lookup_address_and_initiate_socket_connection(SOCKET_IO_INSTANCE* soc
             result = 0;
         }
     }
-//    else
-//    {
-//        if (strlen(socket_io_instance->hostname) + 1 > sizeof(addrInfoUn.sun_path))
-//        {
-//            LogError("Hostname %s is too long for a unix socket (max len = %d)", socket_io_instance->hostname, sizeof(addrInfoUn.sun_path));
-//            result = __FAILURE__;
-//        }
-//        else
-//        {
-//            memset(&addrInfoUn, 0, sizeof(addrInfoUn));
-//            addrInfoUn.sun_family = AF_INET;
-//            strncpy(addrInfoUn.sun_path, socket_io_instance->hostname, sizeof(addrInfoUn.sun_path) - 1);
-//            
-//            connect_addr = (struct sockaddr*)&addrInfoUn;
-//            connect_addr_len = sizeof(addrInfoUn);
-//            result = 0;
-//        }
-//    }
     
     if (result == 0)
     {
-        int flags;
-
-        if ((-1 == (flags = fcntl(socket_io_instance->socket, F_GETFL, 0))) ||
-            (fcntl(socket_io_instance->socket, F_SETFL, flags | O_NONBLOCK) == -1))
-        {
-            LogError("Failure: fcntl failure.");
-            result = __FAILURE__;
-        }
-        else
         {
             err = connect(socket_io_instance->socket, connect_addr, connect_addr_len);      
             if ((err != 0) && (errno != EINPROGRESS))
