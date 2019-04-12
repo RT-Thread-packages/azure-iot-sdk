@@ -709,6 +709,13 @@ int socketio_open(CONCRETE_IO_HANDLE socket_io, ON_IO_OPEN_COMPLETE on_io_open_c
         else
         {
             socket_io_instance->socket = socket (socket_io_instance->address_type == ADDRESS_TYPE_IP ? AF_INET : AF_INET, SOCK_STREAM, 0);
+            
+            if (socket_io_instance->socket > SOCKET_SUCCESS){
+                struct timeval timeout = {1, 0};
+                int result_setopt = setsockopt(socket_io_instance->socket, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(struct timeval));
+//                rt_kprintf("line:%d file:%s. the result_setopt is %d.\n",__LINE__,__FILE__,result_setopt);
+            }
+
             if (socket_io_instance->socket < SOCKET_SUCCESS)
             {
                 LogError("Failure: socket create failure %d.", socket_io_instance->socket);
