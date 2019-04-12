@@ -94,7 +94,11 @@ RT-Thread online packages  --->
 * Azure 工作原理，请参考 [工作原理](docs/principle.md) 。
 * 更多**详细介绍文档**位于 [`/docs`](/docs) 文件夹下，**使用软件包进行开发前请务必查看**。
 
-## 4、联系方式 & 感谢
+## 4、注意事项
+
+* azure  软件包编译时请使用较为完整的 libc 库，请不要勾选 MDK 中的 `Use Microlib` 选项
+
+## 5、联系方式 & 感谢
 
 * 维护：RT-Thread 开发团队
 * 主页：https://github.com/RT-Thread-packages/
