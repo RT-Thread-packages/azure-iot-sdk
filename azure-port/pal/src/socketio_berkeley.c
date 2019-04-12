@@ -248,19 +248,12 @@ static int add_pending_io(SOCKET_IO_INSTANCE* socket_io_instance, const unsigned
     return result;
 }
 
-static STATIC_VAR_UNUSED void signal_callback(int signum)
-{
-    AZURE_UNREFERENCED_PARAMETER(signum);
-    LogError("Socket received signal %d.", signum);
-}
-
 static int lookup_address_and_initiate_socket_connection(SOCKET_IO_INSTANCE* socket_io_instance) 
 {
     int result;
     int err;
 
     struct addrinfo addrInfoHintIp;
-//    struct sockaddr_un addrInfoUn;
     struct sockaddr* connect_addr;
     socklen_t connect_addr_len;
     struct addrinfo* addrInfoIp = NULL;
@@ -287,36 +280,9 @@ static int lookup_address_and_initiate_socket_connection(SOCKET_IO_INSTANCE* soc
             result = 0;
         }
     }
-//    else
-//    {
-//        if (strlen(socket_io_instance->hostname) + 1 > sizeof(addrInfoUn.sun_path))
-//        {
-//            LogError("Hostname %s is too long for a unix socket (max len = %d)", socket_io_instance->hostname, sizeof(addrInfoUn.sun_path));
-//            result = __FAILURE__;
-//        }
-//        else
-//        {
-//            memset(&addrInfoUn, 0, sizeof(addrInfoUn));
-//            addrInfoUn.sun_family = AF_INET;
-//            strncpy(addrInfoUn.sun_path, socket_io_instance->hostname, sizeof(addrInfoUn.sun_path) - 1);
-//            
-//            connect_addr = (struct sockaddr*)&addrInfoUn;
-//            connect_addr_len = sizeof(addrInfoUn);
-//            result = 0;
-//        }
-//    }
     
     if (result == 0)
     {
-        int flags;
-
-        if ((-1 == (flags = fcntl(socket_io_instance->socket, F_GETFL, 0))) ||
-            (fcntl(socket_io_instance->socket, F_SETFL, flags | O_NONBLOCK) == -1))
-        {
-            LogError("Failure: fcntl failure.");
-            result = __FAILURE__;
-        }
-        else
         {
             err = connect(socket_io_instance->socket, connect_addr, connect_addr_len);      
             if ((err != 0) && (errno != EINPROGRESS))
@@ -344,16 +310,16 @@ static int wait_for_connection(SOCKET_IO_INSTANCE* socket_io_instance)
 
     fd_set fdset;
     struct timeval tv;
-    
+
     FD_ZERO(&fdset);
     FD_SET(socket_io_instance->socket, &fdset);
     tv.tv_sec = CONNECT_TIMEOUT;
     tv.tv_usec = 0;
-    
+
     do
     {
         retval = select(socket_io_instance->socket + 1, NULL, &fdset, NULL, &tv);
-    
+
         if (retval < 0)
         {
             select_errno = errno;
@@ -401,7 +367,7 @@ static void destroy_network_interface_descriptions(NETWORK_INTERFACE_DESCRIPTION
         {
             destroy_network_interface_descriptions(nid->next);
         }
-    
+
         if (nid->name != NULL)
         {
             free(nid->name);
@@ -411,7 +377,7 @@ static void destroy_network_interface_descriptions(NETWORK_INTERFACE_DESCRIPTION
         {
             free(nid->mac_address);
         }
-        
+
         if (nid->ip_address != NULL)
         {
             free(nid->ip_address);
@@ -424,7 +390,7 @@ static void destroy_network_interface_descriptions(NETWORK_INTERFACE_DESCRIPTION
 static NETWORK_INTERFACE_DESCRIPTION* create_network_interface_description(struct ifreq *ifr, NETWORK_INTERFACE_DESCRIPTION* previous_nid)
 {
     NETWORK_INTERFACE_DESCRIPTION* result;
-    
+
     if ((result = (NETWORK_INTERFACE_DESCRIPTION*)malloc(sizeof(NETWORK_INTERFACE_DESCRIPTION))) == NULL)
     {
         LogError("Failed allocating NETWORK_INTERFACE_DESCRIPTION");
@@ -486,7 +452,7 @@ static NETWORK_INTERFACE_DESCRIPTION* create_network_interface_description(struc
             }
         }
     }
-    
+
     return result;
 }
 
@@ -506,14 +472,14 @@ static int get_network_interface_descriptions(int socket, NETWORK_INTERFACE_DESC
         LogError("ioctl failed querying socket (SIOCGIFCONF, errno=%s)", errno);
         result = __FAILURE__;
     }
-    else 
+    else
     {
         NETWORK_INTERFACE_DESCRIPTION* root_nid = NULL;
         NETWORK_INTERFACE_DESCRIPTION* new_nid = NULL;
 
         struct ifreq* it = ifc.ifc_req;
         const struct ifreq* const end = it + (ifc.ifc_len / sizeof(struct ifreq));
-        
+
         result = 0;
 
         for (; it != end; ++it)
@@ -742,18 +708,14 @@ int socketio_open(CONCRETE_IO_HANDLE socket_io, ON_IO_OPEN_COMPLETE on_io_open_c
         }
         else
         {
-            //socket_io_instance->socket = socket (socket_io_instance->address_type == ADDRESS_TYPE_IP ? AF_INET : AF_UNIX, SOCK_STREAM, 0);
-            socket_io_instance->socket = socket ( AF_INET, SOCK_STREAM , 0);
+            socket_io_instance->socket = socket (socket_io_instance->address_type == ADDRESS_TYPE_IP ? AF_INET : AF_INET, SOCK_STREAM, 0);
             
-            //rt_kprintf("line:%d file:%s. the socket_io_instance->socket is %d.==========================>\n",__LINE__,__FILE__,socket_io_instance->socket);
-                    
-            if (socket_io_instance->socket > SOCKET_SUCCESS)
-            {
+            if (socket_io_instance->socket > SOCKET_SUCCESS){
                 struct timeval timeout = {1, 0};
                 int result_setopt = setsockopt(socket_io_instance->socket, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(struct timeval));
-                //rt_kprintf("line:%d file:%s. the result_setopt is %d.==========================>\n",__LINE__,__FILE__,result_setopt);
+//                rt_kprintf("line:%d file:%s. the result_setopt is %d.\n",__LINE__,__FILE__,result_setopt);
             }
-            
+
             if (socket_io_instance->socket < SOCKET_SUCCESS)
             {
                 LogError("Failure: socket create failure %d.", socket_io_instance->socket);
@@ -1011,19 +973,12 @@ void socketio_dowork(CONCRETE_IO_HANDLE socket_io)
                     // Do not log error here due to this is probably the socket being closed on the other end
                     indicate_error(socket_io_instance);
                 }
-#if defined(__GNUC__)
                 else if (received < 0 && errno != EAGAIN)
                 {
                     LogError("Socketio_Failure: Receiving data from endpoint: errno=%d.", errno);
                     indicate_error(socket_io_instance);
                 }
-#else
-                else if (received < 0 && rt_get_errno() != EAGAIN)
-                {
-                    LogError("Socketio_Failure: Receiving data from endpoint: errno=%d.", rt_get_errno());
-                    indicate_error(socket_io_instance);
-                }
-#endif
+
             } while (received > 0 && socket_io_instance->io_state == IO_STATE_OPEN);
         }
     }
