@@ -3,7 +3,7 @@
 
 /* This file contains certs needed to communicate with Azure (IoT) */
 
-#include "certs.h"
+#include "certs/certs.h"
 
 const char certificates[] = 
 /* DigiCert Baltimore Root */

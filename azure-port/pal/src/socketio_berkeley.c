@@ -26,6 +26,7 @@
 #include <sys/time.h>
 #include <sys/socket.h>
 #include <sys/select.h>
+#include <sys/ioctl.h>
 
 #include <netdb.h>
 #include <unistd.h>
